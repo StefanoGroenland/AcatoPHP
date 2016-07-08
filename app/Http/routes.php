@@ -14,4 +14,7 @@
 Route::get('/', function () {
     return view('registeren');
 });
+Route::get('/registeren-gelukt', function () {
+    return view('registeren-gelukt');
+});
 Route::post('/registeren', 'UserController@registerUser');

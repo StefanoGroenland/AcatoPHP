@@ -15,6 +15,13 @@
      </head>
      <body>
         <div class="container">
+            @if (count($errors))
+       			<ul class="list-unstyled">
+        			@foreach($errors->all() as $error)
+            			<li class="alert alert-danger"><i class="fa fa-exclamation"></i> {{ $error }}</li>
+            		@endforeach
+        	    </ul>
+            @endif
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4"></div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -24,33 +31,61 @@
 
                     <form method="POST" action="{{url('/registeren')}}">
                     {!! csrf_field() !!}
-                      <div class="form-group">
+                      @if($errors->has('email'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
                           <label for="email">Email</label>
-                          <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                          <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="@if(old('email')){{old('email')}}@endif">
                       </div>
-                      <div class="form-group">
+                      @if($errors->has('username'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
                           <label for="username">Gebruikersnaam</label>
-                          <input type="text" class="form-control" id="username" name="username" placeholder="Gebruikersnaam">
+                          <input type="text" class="form-control" id="username" name="username" placeholder="Gebruikersnaam" value="@if(old('username')){{old('username')}}@endif">
                       </div>
-                      <div class="form-group">
+                      @if($errors->has('password') || $errors->has('password_confirmation'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
                           <label for="password">Wachtwoord</label>
                           <input type="password" class="form-control" id="password" name="password" >
                       </div>
-                      <div class="form-group">
-                          <label for="password_confirmed">Herhaal wachtwoord</label>
-                          <input type="password" class="form-control" id="password_confirmed" name="password_confirmed" >
+                      @if($errors->has('password')  || $errors->has('password_confirmation'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
+                          <label for="password_confirmation">Herhaal wachtwoord</label>
+                          <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" >
                       </div>
-                      <div class="form-group">
+                      @if($errors->has('streetname'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
                           <label for="streetname">Straatnaam</label>
-                          <input type="text" class="form-control" id="streetname" name="streetname" placeholder="Straatnaam">
+                          <input type="text" class="form-control" id="streetname" name="streetname" placeholder="Straatnaam" value="@if(old('streetname')){{old('streetname')}}@endif">
                       </div>
-                      <div class="form-group">
+                      @if($errors->has('postalcode'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
                           <label for="postalcode">Postcode</label>
-                          <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="Postcode">
+                          <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="Postcode" value="@if(old('postalcode')){{old('postalcode')}}@endif">
                       </div>
-                      <div class="form-group">
+                      @if($errors->has('city'))
+                        <div class="form-group has-error">
+                      @else
+                        <div class="form-group">
+                      @endif
                           <label for="city">Stad</label>
-                          <input type="text" class="form-control" id="city" name="city" placeholder="Stad">
+                          <input type="text" class="form-control" id="city" name="city" placeholder="Stad" value="@if(old('city')){{old('city')}}@endif">
                       </div>
                       <button type="submit" class="btn btn-info">Aanmelden</button>
                     </form>

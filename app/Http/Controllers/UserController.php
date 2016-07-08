@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\User;
+use App\User as User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    //TODO model and controller commenting and old input in register form / errors showing
     public function registerUser(Request $request){
         $data = array(
             'email'                 =>  $request['email'],
             'username'              =>  $request['username'],
             'password'              =>  $request['password'],
-            'password_confirmation' =>  $request['password_confirmed'],
+            'password_confirmation' =>  $request['password_confirmation'],
             'streetname'            =>  $request['streetname'],
             'postalcode'            =>  $request['postalcode'],
             'city'                  =>  $request['city']
@@ -33,9 +34,10 @@ class UserController extends Controller
 
         $validator = Validator::make($data,$rules);
         if($validator->fails()){
-            return redirect('/registeren')->withErrors($validator);
+            return redirect('/')->withErrors($validator)->withInput($data);
         }
         array_forget($data, 'password_confirmation');
+        $data['password'] = bcrypt($data['password']);
         User::create($data);
         return redirect('/registeren-gelukt');
     }
