@@ -27,7 +27,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
 
                 <img src="https://www.acato.nl/dist/assets/images/acato-logo-horizontal-@1x-white.svg"
-                 alt="..." style="background-color: #2eaed9;" width="100" height="100"  class="img-circle center-block">
+                 alt="logo" style="background-color: #2eaed9;" width="100" height="100"  class="img-circle center-block">
 
                     <form method="POST" action="{{url('/registeren')}}">
                     {!! csrf_field() !!}
